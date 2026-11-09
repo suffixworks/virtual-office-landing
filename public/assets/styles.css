@@ -197,13 +197,12 @@ button, input, select { font: inherit; color: inherit; }
 .frame { position: absolute; will-change: transform; }
 .frame-in {
   width: 100%; height: 100%; border-radius: 12px;
-  border: 1px dashed rgba(242,240,235,.32);
-  background: repeating-linear-gradient(135deg, #1A1E1C 0 12px, #141715 12px 24px);
-  display: grid; place-content: center; justify-items: center; gap: 6px;
-  color: #8F8C84; font-size: .72rem; text-align: center; padding: 6px;
+  overflow: hidden; background: var(--black-2);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .45);
   animation: drift 8s ease-in-out infinite alternate;
 }
-.frame-in .icon { width: 22px; height: 22px; }
+/* Abstract office illustrations (placeholders until real photos of the space are ready) */
+.frame-in img { width: 100%; height: 100%; object-fit: cover; }
 .f1 { top: 28px; left: 16px; width: 104px; aspect-ratio: 4/3; }
 .f3 { top: 48px; right: 16px; width: 78px; aspect-ratio: 3/4; }
 .f5 { bottom: 112px; left: 20px; width: 92px; aspect-ratio: 1; }
@@ -221,7 +220,6 @@ button, input, select { font: inherit; color: inherit; }
   .f5 { bottom: 9%; left: 9%; width: clamp(120px, 15vw, 220px); aspect-ratio: 4/3; }
   .f6 { bottom: 8%; right: 8%; width: clamp(120px, 13vw, 200px); }
   .f7 { top: 47%; right: 2%; width: clamp(80px, 8vw, 120px); aspect-ratio: 1; }
-  .frame-in { font-size: .8rem; }
 }
 @keyframes drift { from { transform: translateY(-6px); } to { transform: translateY(8px); } }
 @media (prefers-reduced-motion: reduce) { .frame-in { animation: none; } }
