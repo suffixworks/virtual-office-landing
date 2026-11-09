@@ -89,15 +89,29 @@
   /* ---------- Word-by-word brightening ---------- */
   var seg = (window.Intl && Intl.Segmenter) ? new Intl.Segmenter('th', { granularity: 'word' }) : null;
   var esc = function (s) { return s.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  // Phrases stay on one line unless one is wider than its block (long Thai runs have no spaces), then it wraps between words.
+  var fitPhrases = function (el) {
+    var max = el.clientWidth;
+    el.querySelectorAll('.ph').forEach(function (ph) {
+      ph.classList.add('nw');
+      if (ph.offsetWidth > max) ph.classList.remove('nw');
+    });
+  };
+  var refit = function () { document.querySelectorAll('[data-reveal]').forEach(fitPhrases); };
+  var refitTimer;
+  window.addEventListener('resize', function () { clearTimeout(refitTimer); refitTimer = setTimeout(refit, 150); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(refit);
+
   gsap.utils.toArray('[data-reveal]').forEach(function (el) {
     var text = el.textContent.trim();
     var min = parseFloat(el.getAttribute('data-reveal')) || 0.4;
     // Lines only break at the spaces the copy already has; words inside a phrase brighten one by one.
     var phrases = text.split(/\s+/).map(function (ph) {
       var words = seg ? Array.from(seg.segment(ph), function (x) { return x.segment; }) : [ph];
-      return '<span class="nw">' + words.map(function (w) { return '<span class="w">' + esc(w) + '</span>'; }).join('') + '</span>';
+      return '<span class="nw ph">' + words.map(function (w) { return '<span class="w">' + esc(w) + '</span>'; }).join('') + '</span>';
     });
     el.innerHTML = '<span class="sr-only">' + esc(text) + '</span><span aria-hidden="true">' + phrases.join(' ') + '</span>';
+    fitPhrases(el);
     gsap.fromTo(el.querySelectorAll('.w'), { opacity: min }, {
       opacity: 1, stagger: 0.1, ease: 'none',
       scrollTrigger: { trigger: el, start: 'top 85%', end: 'bottom 55%', scrub: true }

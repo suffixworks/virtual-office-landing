@@ -171,6 +171,7 @@ button, input, select { font: inherit; color: inherit; }
 @media (min-width: 960px) { .section-head { margin-bottom: 72px; } }
 
 .split { display: grid; gap: 40px; }
+.split > * { min-width: 0; }
 @media (min-width: 960px) {
   .split { grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
 }
