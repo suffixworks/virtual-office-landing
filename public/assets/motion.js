@@ -30,7 +30,10 @@
     var target = id.length > 1 && document.querySelector(id);
     if (!target) return;
     e.preventDefault();
-    lenis.scrollTo(target, {
+    var sec = target.closest('main > .hero, main > .section');
+    var dest = target;
+    if (sec && naturalTop.has(sec)) dest = naturalTop.get(sec) + (target.getBoundingClientRect().top - sec.getBoundingClientRect().top);
+    lenis.scrollTo(dest, {
       duration: 1.6,
       onComplete: function () {
         if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
@@ -141,17 +144,23 @@
     });
   });
 
-  /* ---------- Section lag: each block's content eases down as the next block covers it ---------- */
-  var blocks = gsap.utils.toArray('main > .section');
-  blocks.forEach(function (sec, i) {
-    var next = blocks[i + 1];
-    var inner = sec.querySelector(':scope > .container');
-    if (!next || !inner) return;
-    gsap.fromTo(inner, { yPercent: 0 }, {
-      yPercent: 12, ease: 'none',
-      scrollTrigger: { trigger: next, start: 'top bottom', end: 'top top', scrub: true }
+  /* ---------- Stacked sections, like the reference ----------
+     Each block is position: sticky. A block taller than the screen sticks once its bottom reaches the
+     bottom of the screen (negative top), so it is read in full before the next block slides over it. */
+  var stack = gsap.utils.toArray('main > .hero, main > .section');
+  var naturalTop = new Map();
+  var measureStack = function () {
+    var vh = window.innerHeight;
+    stack.forEach(function (sec) {
+      sec.style.setProperty('--stick', Math.min(0, vh - sec.offsetHeight) + 'px');
+      naturalTop.set(sec, sec.getBoundingClientRect().top + window.scrollY);
     });
-  });
+  };
+  root.classList.add('stack');
+  // ScrollTrigger measures the plain, un-stuck layout; sticky comes back once it is done.
+  ST.addEventListener('refreshInit', function () { root.classList.add('stack-measure'); measureStack(); });
+  ST.addEventListener('refresh', function () { root.classList.remove('stack-measure'); });
+  root.classList.add('stack-measure'); measureStack(); root.classList.remove('stack-measure');
 
   /* ---------- Footer slides up into view ---------- */
   var footer = document.querySelector('.site-footer > .container');
