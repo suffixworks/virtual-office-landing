@@ -122,50 +122,6 @@
     });
   }
 
-  /* ---------------- Scroll reveal statement ---------------- */
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  document.querySelectorAll('[data-reveal]').forEach(function (el) {
-    if (reduce) return;
-    var text = el.textContent.trim();
-    var seg = (window.Intl && Intl.Segmenter) ? new Intl.Segmenter('th', { granularity: 'word' }) : null;
-    var esc = function (s) { return s.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
-    // Lines may only break at the spaces the copy already has; words inside a phrase reveal one by one.
-    var phrases = text.split(/\s+/).map(function (ph) {
-      var words = seg ? Array.from(seg.segment(ph), function (x) { return x.segment; }) : [ph];
-      return '<span class="nw">' + words.map(function (w) { return '<span class="w">' + esc(w) + '</span>'; }).join('') + '</span>';
-    });
-    el.innerHTML = '<span class="sr-only">' + esc(text) + '</span><span aria-hidden="true">' + phrases.join(' ') + '</span>';
-    var spans = el.querySelectorAll('.w');
-    var ticking = false;
-    function update() {
-      ticking = false;
-      var r = el.getBoundingClientRect();
-      var vh = window.innerHeight;
-      var p = (vh * 0.85 - r.top) / (vh * 0.5);
-      var n = Math.max(0, Math.min(spans.length, Math.round(p * spans.length)));
-      for (var i = 0; i < spans.length; i++) spans[i].classList.toggle('on', i < n);
-    }
-    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
-    update();
-  });
-
-  /* ---------------- Hero frames parallax ---------------- */
-  var frames = document.querySelectorAll('.hero-frames .frame[data-speed]');
-  var hero = document.querySelector('.hero');
-  if (frames.length && hero && !reduce) {
-    var pTick = false;
-    var moveFrames = function () {
-      pTick = false;
-      var y = window.scrollY;
-      if (y > hero.offsetHeight) return;
-      for (var i = 0; i < frames.length; i++) {
-        var sp = parseFloat(frames[i].getAttribute('data-speed')) || 0;
-        frames[i].style.transform = 'translate3d(0,' + (y * sp).toFixed(1) + 'px,0)';
-      }
-    };
-    window.addEventListener('scroll', function () { if (!pTick) { pTick = true; requestAnimationFrame(moveFrames); } }, { passive: true });
-  }
-
   /* ---------------- CTA + package tracking ---------------- */
   var form = document.getElementById('lead-form');
   var pkgSelect = document.getElementById('f-package');

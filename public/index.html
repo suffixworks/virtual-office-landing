@@ -24,7 +24,12 @@
 <link rel="preload" href="fonts/anuphan-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/plex-thai-400-thai.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/styles.css">
+<script>(function(d){if(!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches)){d.classList.add("motion-pending");setTimeout(function(){d.classList.remove("motion-pending")},4000)}})(document.documentElement)</script>
+<script src="assets/vendor/gsap.min.js" defer></script>
+<script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="assets/vendor/lenis.min.js" defer></script>
 <script src="assets/main.js" defer></script>
+<script src="assets/motion.js" defer></script>
 
 <script type="application/ld+json">
 {
@@ -150,6 +155,7 @@
 
   <!-- Hero -->
   <section class="hero theme-dark" aria-labelledby="hero-title">
+    <div class="hero-stage">
     <div class="hero-frames" aria-hidden="true">
       <div class="frame f1" data-speed="-0.12"><div class="frame-in"><svg class="icon"><use href="#i-image"/></svg><span>ภาพพื้นที่จริง</span></div></div>
       <div class="frame f2" data-speed="-0.2"><div class="frame-in"><svg class="icon"><use href="#i-image"/></svg><span>ภาพพื้นที่จริง</span></div></div>
@@ -162,7 +168,7 @@
 
     <div class="container hero-center">
       <p class="badge"><span class="badge-dot" aria-hidden="true"></span>เปิดลงชื่อรอบแรก ล็อกราคา early bird [จำนวน] บล็อก</p>
-      <h1 id="hero-title"><span class="nw">ที่อยู่บริษัท</span>ที่<span class="nw">จด VAT ได้จริง</span> <span class="dim">พร้อม<span class="nw">ผู้ช่วย AI</span> <span class="nw">ดูแลงานเอกสาร</span><span class="nw">ให้ทุกเดือน</span></span></h1>
+      <h1 id="hero-title"><span class="line1"><span class="nw">ที่อยู่บริษัท</span>ที่<span class="nw">จด VAT ได้จริง</span></span> <span class="dim line2">พร้อม<span class="nw">ผู้ช่วย AI</span> <span class="nw">ดูแลงานเอกสาร</span><span class="nw">ให้ทุกเดือน</span></span></h1>
       <div class="cta-row">
         <a class="btn btn-light" href="#waitlist" data-cta="hero_primary">ลงชื่อและนัดชมสถานที่<span class="btn-arrow" aria-hidden="true"><svg class="icon"><use href="#i-arrow"/></svg></span></a>
         <a class="btn btn-ghost" href="#packages" data-cta="hero_secondary">ดูแพ็กเกจและราคา</a>
@@ -172,12 +178,13 @@
         <span>ทำเล: [ย่าน / ถนน], กรุงเทพฯ · ใกล้ [สถานี BTS/MRT]</span>
       </p>
     </div>
+    </div>
   </section>
 
   <!-- Hero sub + day-one card (cream) -->
   <section class="section theme-cream section-intro" aria-labelledby="benefits-title">
     <div class="container split">
-      <p class="intro-lead">พื้นที่แบ่งเป็นบล็อกมีเลขกำกับ มีสัญญาเช่าและป้ายชื่อบริษัทของคุณ ออกแบบตามเกณฑ์สถานประกอบการที่สรรพากรใช้พิจารณา พร้อมผู้ช่วย AI บน LINE ที่เตือนกำหนดยื่นแบบและสรุปเอกสารสำคัญให้</p>
+      <p class="intro-lead" data-reveal="0.5">พื้นที่แบ่งเป็นบล็อกมีเลขกำกับ มีสัญญาเช่าและป้ายชื่อบริษัทของคุณ ออกแบบตามเกณฑ์สถานประกอบการที่สรรพากรใช้พิจารณา พร้อมผู้ช่วย AI บน LINE ที่เตือนกำหนดยื่นแบบและสรุปเอกสารสำคัญให้</p>
       <div>
         <h2 id="benefits-title" class="kicker">สิ่งที่คุณได้ในวันเริ่มใช้งาน</h2>
         <ul class="rule-list">
@@ -193,7 +200,7 @@
   <!-- Problem (dark) -->
   <section class="section theme-dark section-problem" aria-labelledby="problem-title">
     <div class="container">
-      <h2 id="problem-title" class="statement" data-reveal>ตั้งแต่ปี 2569 ที่อยู่ราคาถูก อย่างเดียวไม่พอแล้ว</h2>
+      <h2 id="problem-title" class="statement" data-reveal="0.4">ตั้งแต่ปี 2569 ที่อยู่ราคาถูก อย่างเดียวไม่พอแล้ว</h2>
       <ol class="problem-list">
         <li>
           <span class="num" aria-hidden="true">01</span>
