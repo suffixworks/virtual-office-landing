@@ -1,5 +1,9 @@
 # Landing page ทดสอบตลาด Virtual Office (VAT-ready) + ผู้ช่วย AI
 
+**Demo:** https://suffixworks.github.io/virtual-office-landing/ (GitHub Pages, deploy อัตโนมัติเมื่อ push เข้า `main` ผ่าน `.github/workflows/pages.yml`)
+
+> บน GitHub Pages ไม่มี `/api` ฟอร์มจึงทำงานแบบ demo: ตรวจข้อมูลและแสดงข้อความสำเร็จ แต่ **ไม่บันทึกลีด** และไม่โหลด GA4/Meta Pixel (ตรวจจาก hostname `*.github.io` ใน `main.js`) การเก็บลีดจริงต้อง deploy บน Vercel
+
 หน้าเดียวสำหรับวัด demand ให้คนลงชื่อฟรีและนัดชมสถานที่ **ไม่มีระบบรับเงินหรือมัดจำ**
 
 - Static HTML + CSS + JS (ไม่มี framework, ไม่มี build step) ฟอนต์ self-host
