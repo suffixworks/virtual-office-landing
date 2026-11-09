@@ -289,7 +289,7 @@
       })
       .catch(function () {
         if (!success.hidden) return;
-        showStatus('ส่งข้อมูลไม่สำเร็จ กรุณาลองอีกครั้ง หรือติดต่อทาง LINE [LINE OA ID]');
+        showStatus('ส่งข้อมูลไม่สำเร็จ กรุณาลองอีกครั้ง หรือติดต่อ [อีเมล / เบอร์โทร]');
       })
       .then(function () {
         sending = false;

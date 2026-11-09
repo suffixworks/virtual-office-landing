@@ -74,7 +74,7 @@ GA4 และ Meta Pixel โหลด **หลังผู้ใช้กดย�
 
 | Event | เมื่อไร | Parameters |
 |---|---|---|
-| `cta_click` | คลิกปุ่ม CTA ใด ๆ | `location`: `header`, `hero_primary`, `hero_secondary`, `package_address`, `package_vat_ready`, `package_vat_ready_ai`, `form_line` |
+| `cta_click` | คลิกปุ่ม CTA ใด ๆ | `location`: `header`, `hero_primary`, `hero_secondary`, `package_address`, `package_vat_ready`, `package_vat_ready_ai` |
 | `package_select` | คลิกปุ่มในการ์ดแพ็กเกจ หรือเปลี่ยน dropdown | `package`, `location` (`package_card` / `form`) |
 | `form_start` | โฟกัสช่องแรกในฟอร์ม (ครั้งเดียว) | |
 | `generate_lead` | ส่งฟอร์มสำเร็จ | `package`, `start_timeline`, `addons` (คั่นด้วย comma) |
@@ -103,14 +103,13 @@ copy ทั้งหน้ามาจาก Content Brief แบบคำต่
 - `[ราคา]`: 3 แพ็กเกจ + บริการเสริมเบอร์ 02 และรับฝากเก็บเอกสาร
 - `[ชื่อพาร์ทเนอร์]`: บรรทัดเล็กใต้บริการเสริม 2 ที่
 - `[สรุปนโยบายความเป็นส่วนตัวตาม PDPA: ...]` และ `[จำนวนเงิน]`: ใน FAQ (แก้ใน FAQPage JSON-LD ด้วยให้ตรงกัน)
-- `[LINE OA ID]`: ลิงก์ "หรือแอดไลน์" ใต้หัวข้อฟอร์ม (ทั้งข้อความและใน `href`)
 - `[ชื่อนิติบุคคลผู้ให้บริการ]`, `[ที่อยู่สำนักงาน]`, `[เลข 13 หลัก]`: footer
 - LocalBusiness JSON-LD: `[เบอร์โทร]`, `[ที่อยู่สำนักงาน]`, `[ย่าน / เขต]`, `[รหัสไปรษณีย์]`
 - แชตตัวอย่างในส่วนผู้ช่วย AI: `[ตัวอย่างข้อความ: ...]` 5 ข้อความ (Content Brief ไม่มีข้อความนี้ จึงเว้นเป็น placeholder) หรือลบ `<figure class="chat">` ออกถ้าไม่ต้องการ
 - ภาพประกอบ office แบบ abstract 7 ภาพใน hero (`public/assets/art/*.svg`): เป็นภาพชั่วคราว เมื่อมีรูปพื้นที่จริงให้เปลี่ยน `src` ของ `<img>` ใน `.hero-frames`
 
 **`public/assets/main.js`**
-- `[LINE OA ID]`: ในข้อความ error เมื่อส่งฟอร์มไม่สำเร็จ
+- `[อีเมล / เบอร์โทร]`: ช่องทางติดต่อสำรองในข้อความ error เมื่อส่งฟอร์มไม่สำเร็จ
 
 **`public/privacy.html`**: ทุก `[...]` ควรให้ผู้รู้ด้าน PDPA ตรวจ
 
@@ -159,4 +158,4 @@ Mood & tone อ้างอิง petesena.com: บล็อกสีเต็�
 - [x] 375px เป็นคอลัมน์เดียว ไม่มี horizontal scroll
 - [x] เทสต์ API: บันทึก Sheet, validation, honeypot, กรณี Sheet ล่ม (`npm test`, mock)
 - [ ] **ทดสอบส่งฟอร์มจริงแล้วข้อมูลเข้า Sheet**: ต้องทำหลังตั้ง Apps Script และ env vars
-- แจ้งเตือนทีมทาง LINE: ตัดออกแล้ว ดูลีดใหม่ใน Sheet แทน
+- ไม่มี LINE ในเว็บแล้ว (ทั้งการแจ้งเตือนทีม ลิงก์ติดต่อ และผู้ช่วย AI ซึ่งใช้ Slack, Discord และ Basecamp แทน) ดูลีดใหม่ใน Sheet
