@@ -12,7 +12,7 @@ var SUMMARY_SHEET = 'Summary';
 
 // Column order in the Leads sheet. Keep in sync with api/lead.js toSheetRow().
 var FIELDS = [
-  'name', 'phone', 'email', 'company_status', 'package', 'start_timeline', 'addons', 'pdpa_consent',
+  'name', 'email', 'company_status', 'package', 'start_timeline', 'addons', 'pdpa_consent',
   'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'referrer', 'landing_page'
 ];
 var HEADERS = ['timestamp'].concat(FIELDS);
@@ -37,11 +37,7 @@ function doPost(e) {
   lock.waitLock(10000);
   try {
     var sheet = ensureLeadsSheet();
-    var row = [new Date()].concat(FIELDS.map(function (f) {
-      var v = safe(lead[f]);
-      // Force phone to text so the leading 0 is kept.
-      return f === 'phone' && v && v.charAt(0) !== "'" ? "'" + v : v;
-    }));
+    var row = [new Date()].concat(FIELDS.map(function (f) { return safe(lead[f]); }));
     sheet.appendRow(row);
   } finally {
     lock.releaseLock();

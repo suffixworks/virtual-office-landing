@@ -16,7 +16,7 @@ globalThis.fetch = async (url, init) => {
 };
 
 const valid = {
-  name: 'สมชาย ใจดี', phone: '081-234-5678', email: 'Somchai@Example.com',
+  name: 'สมชาย ใจดี', email: 'Somchai@Example.com',
   company_status: 'registered-no-vat', package: 'vat-ready', start_timeline: 'within-1-month',
   addons: ['phone-02', 'doc-storage'],
   pdpa_consent: true, website: '', elapsed_ms: 12000,
@@ -39,7 +39,6 @@ await test('valid lead is written to the Sheet', async () => {
   assert.equal(calls.length, 1);
   const sheet = JSON.parse(calls[0].init.body);
   assert.equal(sheet.secret, 'test-secret');
-  assert.equal(sheet.lead.phone, '0812345678');
   assert.equal(sheet.lead.email, 'somchai@example.com');
   assert.equal(sheet.lead.package, 'VAT-ready');
   assert.equal(sheet.lead.start_timeline, 'ภายใน 1 เดือน');
@@ -50,10 +49,10 @@ await test('valid lead is written to the Sheet', async () => {
 });
 
 await test('invalid fields return 400 with field errors and no fetch', async () => {
-  const res = await POST(req({ ...valid, phone: '12345', email: 'nope', package: 'gold', pdpa_consent: false }));
+  const res = await POST(req({ ...valid, email: 'nope', package: 'gold', pdpa_consent: false }));
   assert.equal(res.status, 400);
   const body = await res.json();
-  assert.deepEqual(Object.keys(body.errors).sort(), ['email', 'package', 'pdpa_consent', 'phone']);
+  assert.deepEqual(Object.keys(body.errors).sort(), ['email', 'package', 'pdpa_consent']);
   assert.equal(calls.length, 0);
 });
 
@@ -67,15 +66,10 @@ await test('no add-ons is fine, unknown add-on is rejected', async () => {
   assert.deepEqual(Object.keys((await res.json()).errors), ['addons']);
 });
 
-await test('9-digit landline is rejected (brief asks for 10 digits)', async () => {
-  const res = await POST(req({ ...valid, phone: '021234567' }));
-  assert.equal(res.status, 400);
-});
-
-await test('+66 phone is normalised', async () => {
-  const res = await POST(req({ ...valid, phone: '+66812345678' }));
+await test('no phone field is collected', async () => {
+  const res = await POST(req({ ...valid, phone: '0812345678' }));
   assert.equal(res.status, 200);
-  assert.equal(JSON.parse(calls[0].init.body).lead.phone, '0812345678');
+  assert.equal('phone' in JSON.parse(calls[0].init.body).lead, false);
 });
 
 await test('honeypot is silently dropped', async () => {

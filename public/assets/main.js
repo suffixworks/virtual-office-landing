@@ -158,7 +158,6 @@
 
   var MESSAGES = {
     name: 'กรุณากรอกชื่อผู้ติดต่อ',
-    phone: 'กรุณากรอกเบอร์โทร 10 หลัก',
     email: 'กรุณากรอกอีเมลให้ถูกต้อง',
     company_status: 'กรุณาเลือกข้อนี้',
     package: 'กรุณาเลือกข้อนี้',
@@ -166,8 +165,6 @@
     pdpa_consent: 'กรุณายินยอมก่อนส่งข้อมูล'
   };
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-
-  function normalizePhone(v) { return String(v || '').replace(/[\s\-().]/g, '').replace(/^\+66/, '0'); }
 
   function fieldEls(name) { return form.querySelectorAll('[name="' + name + '"]'); }
   function setError(name, msg) {
@@ -185,7 +182,6 @@
     var fd = new FormData(form);
     return {
       name: String(fd.get('name') || '').trim(),
-      phone: normalizePhone(fd.get('phone')),
       email: String(fd.get('email') || '').trim(),
       company_status: String(fd.get('company_status') || ''),
       package: String(fd.get('package') || ''),
@@ -199,7 +195,6 @@
   function validate(d) {
     var errs = {};
     if (!d.name) errs.name = true;
-    if (!/^0\d{9}$/.test(d.phone)) errs.phone = true;
     if (!EMAIL_RE.test(d.email)) errs.email = true;
     if (!d.company_status) errs.company_status = true;
     if (!d.package) errs.package = true;
@@ -244,7 +239,7 @@
     if (firstBad) { fieldEls(firstBad)[0].focus(); return; }
 
     var payload = {
-      name: d.name, phone: d.phone, email: d.email,
+      name: d.name, email: d.email,
       company_status: d.company_status, package: d.package, start_timeline: d.start_timeline,
       addons: d.addons,
       pdpa_consent: d.pdpa_consent, website: d.website,

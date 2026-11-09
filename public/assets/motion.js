@@ -128,9 +128,11 @@
     '.form-intro > *', '.form-wrap', '.disclaimer', '.footer-row'
   ].join(','));
   gsap.set(risers, { opacity: 0, y: 60 });
-  var rise = function (batch) { gsap.to(batch, { opacity: 1, y: 0, duration: 1.1, stagger: 0.08, ease: 'expo.out', overwrite: true }); };
-  // onLeave covers jumps past an element (hash links, End key, find in page) so nothing stays hidden.
-  ST.batch(risers, { start: 'top 92%', once: true, onEnter: rise, onLeave: rise });
+  // Stagger is capped so a big batch (after a jump) still finishes in well under a second.
+  var rise = function (batch) { gsap.to(batch, { opacity: 1, y: 0, duration: 1.1, stagger: Math.min(0.08, 0.5 / batch.length), ease: 'expo.out', overwrite: true }); };
+  // Elements jumped past (menu links, End key, find in page) appear at once, so nothing waits off screen.
+  var show = function (batch) { gsap.set(batch, { opacity: 1, y: 0, overwrite: true }); };
+  ST.batch(risers, { start: 'top 92%', once: true, onEnter: rise, onLeave: show });
 
   /* ---------- Media: clip-path reveal + drift ---------- */
   gsap.utils.toArray('.chat').forEach(function (m) {

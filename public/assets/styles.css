@@ -148,6 +148,12 @@ button, input, select { font: inherit; color: inherit; }
 .site-nav a:hover { color: var(--cream); background: rgba(242, 240, 235, .08); }
 .nav-toggle { display: none; width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(242,240,235,.18); background: transparent; cursor: pointer; place-items: center; }
 
+/* Small phones: drop the logo mark so the brand name and CTA both fit */
+@media (max-width: 420px) {
+  .logo-mark { display: none; }
+  .logo { padding: 0 8px 0 14px; font-size: 1.05rem; }
+  .nav-pill .btn-sm { padding: 6px 16px; white-space: nowrap; }
+}
 @media (max-width: 899px) {
   .nav-toggle { display: inline-grid; }
   .site-nav {
@@ -413,7 +419,8 @@ input:focus, select:focus { border-color: var(--accent); }
 /* ---------- Footer ---------- */
 .site-footer { padding: 80px 0 40px; }
 /* Oversized wordmark, set very tight like the reference footer */
-.footer-brand { font-family: var(--font-head); font-size: clamp(3.25rem, 18vw, 14rem); font-weight: 500; letter-spacing: -.045em; line-height: 1; margin-bottom: 32px; overflow-wrap: anywhere; }
+/* Sized so "untitled space" fills the container width on one line */
+.footer-brand { font-family: var(--font-head); font-size: min(calc((100vw - 2 * var(--gutter)) / 6.2), 11.6rem); font-weight: 500; letter-spacing: -.045em; line-height: 1; margin-bottom: 32px; white-space: nowrap; }
 .footer-row { display: grid; gap: 16px; color: var(--muted); font-size: .95rem; border-top: 1px solid var(--rule); padding-top: 24px; }
 @media (min-width: 960px) { .footer-row { grid-template-columns: 1fr auto; } }
 .footer-links { display: flex; flex-wrap: wrap; gap: 4px 20px; }

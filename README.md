@@ -48,7 +48,7 @@ npm test        # เทสต์ /api/lead
    - เปิดเป็น Anyone ได้เพราะทุก request ต้องมี `SHARED_SECRET` ตรงกัน
 6. ถ้าแก้โค้ดภายหลัง ต้อง **Manage deployments > Edit > New version** URL เดิมจึงจะใช้โค้ดใหม่
 
-คอลัมน์ใน `Leads`: timestamp, name, phone, email, company_status, package, start_timeline, addons, pdpa_consent, utm_source, utm_medium, utm_campaign, utm_content, referrer, landing_page
+คอลัมน์ใน `Leads`: timestamp, name, email, company_status, package, start_timeline, addons, pdpa_consent, utm_source, utm_medium, utm_campaign, utm_content, referrer, landing_page
 
 ## Environment variables (Vercel > Project > Settings > Environment Variables)
 
@@ -87,8 +87,8 @@ GA4 และ Meta Pixel โหลด **หลังผู้ใช้กดย�
 ## กันสแปมและความปลอดภัย
 
 - Honeypot field (`website`) และเช็กเวลากรอก (ส่งเร็วกว่า 1.5 วินาทีถือเป็นบอท) ทั้งสองกรณีตอบสำเร็จแบบเงียบ ๆ แต่ไม่บันทึก
-- ตรวจข้อมูลซ้ำฝั่ง server (เบอร์ไทย 10 หลักขึ้นต้น 0, อีเมล, ค่าที่อนุญาตของแต่ละตัวเลือก, ต้องยินยอม PDPA)
-- Apps Script กัน formula injection (ค่าที่ขึ้นต้นด้วย `= + - @`) และเก็บเบอร์เป็นข้อความเพื่อไม่ให้ 0 หาย
+- ตรวจข้อมูลซ้ำฝั่ง server (ชื่อ, อีเมล, ค่าที่อนุญาตของแต่ละตัวเลือก, ต้องยินยอม PDPA)
+- Apps Script กัน formula injection (ค่าที่ขึ้นต้นด้วย `= + - @`) และฟอร์มไม่เก็บเบอร์โทร ใช้อีเมลเป็นช่องทางติดต่อหลัก
 - ยังไม่มี rate limit ต่อ IP ถ้าโดนสแปมหนักให้เปิด Vercel Firewall rate limiting ที่ `/api/lead`
 
 ## Placeholder ที่ต้องแก้ก่อนเปิดจริง
@@ -96,7 +96,6 @@ GA4 และ Meta Pixel โหลด **หลังผู้ใช้กดย�
 copy ทั้งหน้ามาจาก Content Brief แบบคำต่อคำ ค้นหา placeholder ได้ด้วย `grep -rn "\[" public/index.html public/privacy.html public/assets/main.js`
 
 **`public/index.html`**
-- `[ชื่อแบรนด์]`: title, OG, logo, footer, JSON-LD, หัวแชตตัวอย่าง
 - `[ย่าน]`: meta description และ og:description
 - `[จำนวน]`: badge ใน hero, ห้องประชุมแพ็กเกจ Address, ข้อความใต้หัวข้อฟอร์ม
 - `[ย่าน / ถนน]`, `[สถานี BTS/MRT]`: ทำเลใน hero
@@ -128,7 +127,7 @@ Mood & tone อ้างอิง petesena.com: บล็อกสีเต็�
 - **Hero**: เต็มจอ หัวข้อจัดกลาง มีภาพห้องแบบ abstract ขอบเหลี่ยม (render 3D แสงเงาสมจริง เป็นพื้นที่ว่างที่มีแสงลอดช่องเปิด: ทางเดินช่องแสง ห้องหน้าต่างข้าง skylight ประตูต่อกัน บันได ช่องสูงสีน้ำเงิน โถงเสา ไฟล์ WebP ภาพละ 5–30KB) ลอยรอบ ๆ 7 ภาพบนจอใหญ่ 4 ภาพบนมือถือ เคลื่อนเบา ๆ และบินออกตามการ scroll ภาพเป็นของตกแต่ง ใช้ `alt=""` และ crop ด้วย `object-fit: cover` ให้พอดีกรอบทุกสัดส่วน
 - **ปัญหา**: ข้อความ statement ค่อย ๆ สว่างทีละคำตามการ scroll
 - **แพ็กเกจ**: การ์ดมีแถบสีด้านบน (เขียวดำ / น้ำเงิน / คอรัล) แพ็กเกจแนะนำยกสูงกว่าและมีขอบน้ำเงิน
-- **บริการเสริม**: การ์ด 3 ใบบนพื้นดำ (เบอร์ 02, รับเอกสาร, รับฝากเก็บเอกสาร)
+- **บริการเสริม**: การ์ด 3 ใบบนพื้นเขียวดำ (เบอร์ 02, รับเอกสาร, รับฝากเก็บเอกสาร)
 - **ผู้ช่วย AI**: รายการฟีเจอร์ + กรอบหน้าจอแชตของ AI Agent (ใช้กับ Slack, Discord และ Basecamp ข้อความเป็น placeholder)
 - **ขั้นตอน**: timeline แนวนอนบนจอใหญ่ แนวตั้งบนมือถือ
 - **ฟอร์ม**: section ครีมเต็มความกว้าง หัวข้อซ้ายติดอยู่ขณะ scroll บนจอใหญ่

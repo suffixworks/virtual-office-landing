@@ -34,14 +34,9 @@ const json = (status, body) =>
 
 const str = (v, max = 200) => String(v ?? '').trim().slice(0, max);
 
-export function normalizePhone(v) {
-  return String(v ?? '').replace(/[\s\-().]/g, '').replace(/^\+66/, '0');
-}
-
 export function validateLead(raw) {
   const lead = {
     name: str(raw.name, 100),
-    phone: normalizePhone(raw.phone),
     email: str(raw.email, 160).toLowerCase(),
     company_status: str(raw.company_status, 40),
     package: str(raw.package, 40),
@@ -57,7 +52,6 @@ export function validateLead(raw) {
   };
   const errors = {};
   if (!lead.name) errors.name = 'required';
-  if (!/^0\d{9}$/.test(lead.phone)) errors.phone = 'invalid';
   if (!EMAIL_RE.test(lead.email)) errors.email = 'invalid';
   if (!COMPANY_STATUSES[lead.company_status]) errors.company_status = 'invalid';
   if (!PACKAGES[lead.package]) errors.package = 'invalid';
@@ -70,7 +64,6 @@ export function validateLead(raw) {
 function toSheetRow(lead) {
   return {
     name: lead.name,
-    phone: lead.phone,
     email: lead.email,
     company_status: COMPANY_STATUSES[lead.company_status],
     package: PACKAGES[lead.package],
