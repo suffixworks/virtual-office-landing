@@ -96,7 +96,7 @@ GA4 และ Meta Pixel โหลด **หลังผู้ใช้กดย�
 copy ทั้งหน้ามาจาก Content Brief แบบคำต่อคำ ค้นหา placeholder ได้ด้วย `grep -rn "\[" public/index.html public/privacy.html public/assets/main.js`
 
 **`public/index.html`**
-- `[จำนวน]`: badge ใน hero, ห้องประชุมแพ็กเกจ Address, ข้อความใต้หัวข้อฟอร์ม
+- `[จำนวน]`: ชั่วโมงห้องประชุมในแพ็กเกจ Address (จำนวนบล็อก early bird ใส่แล้ว: 10 บล็อก)
 - `[ชื่อพาร์ทเนอร์]`: บรรทัดเล็กใต้บริการเสริม 2 ที่
 - `[สรุปนโยบายความเป็นส่วนตัวตาม PDPA: ...]` และ `[จำนวนเงิน]`: ใน FAQ (แก้ใน FAQPage JSON-LD ด้วยให้ตรงกัน)
 - LocalBusiness JSON-LD: `[เบอร์โทร]`, `[ที่อยู่สำนักงาน]`, `[รหัสไปรษณีย์]`

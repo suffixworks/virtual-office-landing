@@ -78,8 +78,8 @@
           ease: 'power1.in'
         }, 0);
       });
-      // The second headline line arrives early in the scroll.
-      if (line2) tl.fromTo(line2, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.25, ease: 'none' }, 0.03);
+      // Pinned (desktop): the second line arrives early in the scroll. Small screens show it straight away.
+      if (line2 && pinned) tl.fromTo(line2, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.25, ease: 'none' }, 0.03);
       return function () { root.classList.remove('hero-pinned'); };
     };
 
