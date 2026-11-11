@@ -96,7 +96,6 @@ GA4 และ Meta Pixel โหลด **หลังผู้ใช้กดย�
 copy ทั้งหน้ามาจาก Content Brief แบบคำต่อคำ ค้นหา placeholder ได้ด้วย `grep -rn "\[" public/index.html public/privacy.html public/assets/main.js`
 
 **`public/index.html`**
-- `[ชื่อพาร์ทเนอร์]`: บรรทัดเล็กใต้บริการเสริม 2 ที่
 - `[สรุปนโยบายความเป็นส่วนตัวตาม PDPA: ...]` และ `[จำนวนเงิน]`: ใน FAQ (แก้ใน FAQPage JSON-LD ด้วยให้ตรงกัน)
 - LocalBusiness JSON-LD: `[เบอร์โทร]`, `[ที่อยู่สำนักงาน]`, `[รหัสไปรษณีย์]`
 - แชตตัวอย่างในส่วนผู้ช่วย AI: `[ตัวอย่างข้อความ: ...]` 5 ข้อความ (Content Brief ไม่มีข้อความนี้ จึงเว้นเป็น placeholder) หรือลบ `<figure class="chat">` ออกถ้าไม่ต้องการ
