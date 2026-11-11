@@ -98,7 +98,6 @@ copy ทั้งหน้ามาจาก Content Brief แบบคำต่
 **`public/index.html`**
 - `[สรุปนโยบายความเป็นส่วนตัวตาม PDPA: ...]` และ `[จำนวนเงิน]`: ใน FAQ (แก้ใน FAQPage JSON-LD ด้วยให้ตรงกัน)
 - LocalBusiness JSON-LD: `[เบอร์โทร]`, `[ที่อยู่สำนักงาน]`, `[รหัสไปรษณีย์]`
-- แชตตัวอย่างในส่วนผู้ช่วย AI: `[ตัวอย่างข้อความ: ...]` 5 ข้อความ (Content Brief ไม่มีข้อความนี้ จึงเว้นเป็น placeholder) หรือลบ `<figure class="chat">` ออกถ้าไม่ต้องการ
 - ภาพห้องแบบ abstract 7 ภาพใน hero (`public/assets/rooms/*.webp`): เป็นภาพชั่วคราว เมื่อมีรูปพื้นที่จริงให้เปลี่ยน `src` ของ `<img>` ใน `.hero-frames`
 
 **`public/assets/main.js`**
